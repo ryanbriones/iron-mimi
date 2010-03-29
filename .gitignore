@@ -1,2 +1,7 @@
 *.exe
 *.dll
+/build
+/bin
+iron-mimi.pidb
+iron-mimi.userprefs
+iron-mimi.usertasks
