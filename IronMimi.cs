@@ -6,35 +6,32 @@ using System.Web;
 using System.ComponentModel;
 
 namespace IronMimi {
-	public class MadMimiAuthentication {
-		public string username { get; set; }
-    public string api_key { get; set; }
-	}
-	
 	public class MadMimiApi {
-		MadMimiAuthentication _auth;
+		private string _username;
+		private string _apikey;
 		
-		public MadMimiApi(MadMimiAuthentication auth) {
-			_auth = auth;
+		public MadMimiApi(string username, string apikey) {
+			_username = username;
+			_apikey = apikey;
 		}
 		
 		public int SendMailing(object parameters) {
 			var requestParams = new Dictionary<string, string>();
-
-      if (parameters != null) {
-        foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(parameters)) {
-          var value = descriptor.GetValue(parameters).ToString();
-          requestParams.Add(descriptor.Name, value);
-        }
-      }
-
+			
+			if (parameters != null) {
+				foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(parameters)) {
+					var value = descriptor.GetValue(parameters).ToString();
+					requestParams.Add(descriptor.Name, value);
+				}
+			}
+			
 			MakePostRequest("https://madmimi.com/mailer", requestParams);
 			return 1;
 		}
 		
 		private string MakePostRequest(String url, IDictionary<string, string> requestParams) {
-			requestParams.Add("username", _auth.username);
-			requestParams.Add("api_key", _auth.api_key);
+			requestParams.Add("username", _username);
+			requestParams.Add("api_key", _apikey);
 			
 			String postData = MadMimiApi.ConvertDictionaryToQueryString(requestParams);
 			
