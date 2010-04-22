@@ -36,7 +36,11 @@ namespace IronMimi {
 			String postData = MadMimiApi.ConvertDictionaryToQueryString(requestParams);
 			
 			using(WebClient client = new WebClient()) {
-				client.UploadData(url, "POST", System.Text.Encoding.UTF8.GetBytes(postData));
+				try {
+					client.UploadData(url, "POST", System.Text.Encoding.UTF8.GetBytes(postData));
+				} catch(WebException e) {
+					throw IronMimi.Exception.MakeException(e);
+				}
 			}
 			
 			return "string";
