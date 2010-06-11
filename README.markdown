@@ -1,6 +1,6 @@
 # NO LONGER IN DEVELOPMENT
 
-Code left on github for postarity and for Scott Parker. Feel free to fork and make your own.
+Code left on github for posterity and for Scott Parker. Feel free to fork and make your own.
 
 # IronMimi
 
